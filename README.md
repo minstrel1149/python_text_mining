@@ -68,3 +68,7 @@
     * CountVectorizer() 클래스 활용
         - tokenizer, stop_words, ngram_range, max_df, min_df, max_features, binary 등 파라미터
         - 한글의 경우 KoNLPy를 통한 형태소 분석으로 별도의 tokenizer 활용
+        - fit_transform(doc) 메서드 적용하면 Compressed Sparse Row format의 Sparse Matrix 반환 → toarray() 메서드 활용 가능
+        - Document Term Matrix는 문서를 행으로, 단어를 열로 해서 빈도를 나타낸 행렬
+    * 코사인 유사도(Cosine Similarity)
+        - Scikit-Learn의 cosine_similarity 함수를 통해 Corpus 내 문서 간 유사도 파악 가능
