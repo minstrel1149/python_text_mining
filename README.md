@@ -47,3 +47,14 @@
         - morphs(para) 메서드 : 텍스트를 형태소 단위로 분리
         - nouns(para) 메서드 : 텍스트를 형태소 단위로 분리 후 명사만 반환
         - pos(para) 메서드 : 텍스트를 형태소 단위로 분리 후 품사를 부착하여 튜플로 반환
+
+### Chapter.3 그래프와 워드 클라우드
+1. 그래프로 표현하기 위해서는 각 token의 개수 파악이 필요
+    * 딕셔너리의 get(word, 0) + 1 메서드를 이용하여 정리 가능
+    * 일반적으로 단어의 빈도는 Zipf's law가 적용 → 상위 빈도수 단어들만 정리
+2. 워드 클라우드(Word Cloud)
+    * 빈도가 높은 단어는 크게 보여줌으로써 전체적인 현황 파악
+    * WordCloud 패키지 활용
+        - max_font_size, max_words, mask, width, height 등의 파라미터 활용 가능
+        - generate(doc) 메서드 활용 → 알아서 토큰화 등의 작업 실행
+        - generate_from_frequencies(count_dict) 메서드를 통해 계산된 빈도 사용 가능
