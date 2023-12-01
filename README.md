@@ -58,3 +58,13 @@
         - max_font_size, max_words, mask, width, height 등의 파라미터 활용 가능
         - generate(doc) 메서드 활용 → 알아서 토큰화 등의 작업 실행
         - generate_from_frequencies(count_dict) 메서드를 통해 계산된 빈도 사용 가능
+        - to_file(path) 메서드를 통해 이미지 파일로 저장 가능
+
+### Chapter.4 카운트 기반의 문서 표현
+1. 카운트 기반 문서 표현의 개념
+    * 각 단어를 Feature로 두고, 그 단어가 텍스터에서 나타난 횟수를 값으로 표현
+    * 성질 상 Sparse 벡터의 형태로 구성 → 효율적으로 처리할 수 있는 방법이 필요
+2. Scikit-Learn으로 카운트 벡터 생성
+    * CountVectorizer() 클래스 활용
+        - tokenizer, stop_words, ngram_range, max_df, min_df, max_features, binary 등 파라미터
+        - 한글의 경우 KoNLPy를 통한 형태소 분석으로 별도의 tokenizer 활용
