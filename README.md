@@ -35,3 +35,15 @@
         - 통시적 어형변화와 공시적 어형변화 존재
         - 영어는 복수형 명사를 단수형으로 바꾸는 작업도 Stemming에 포함
         - Porter Stemmer, Lancaster Stemmer 등 존재 → stemmer 객체 생성 후 stem(token) 메서드 활용
+    * 표제어 추출(Lemmatization) : 주어진 단어를 기본형으로 변환하는 것
+        - WordNetLemmatizer를 주로 사용 → lemma 객체 생성 후 lemmatize(token) 메서드 활용
+        - 품사가 필요할 수도 있으며, pos='v' 등의 파라미터 지정 가능 → 문맥을 통해 파악
+4. 품사 태깅(Pos-tagging)
+    * 품사 태깅 : 형태소에 대해 Part-of-speech를 파악해 tagging하는 작업
+        - 상황에 따라 특정 품사만 필요로 할 때도 활용 가능
+    * NLTK는 Penn Treebank Tagset을 주로 활용 → 세분화된 품사 분류
+    * 한글의 경우 형태소 단위로 분리하여 토큰화 후 Pos-tagging을 진행해야 → KoNLPy 사용
+        - 속도를 위해 주로 Twitter 클래스(Okt) 활용
+        - morphs(para) 메서드 : 텍스트를 형태소 단위로 분리
+        - nouns(para) 메서드 : 텍스트를 형태소 단위로 분리 후 명사만 반환
+        - pos(para) 메서드 : 텍스트를 형태소 단위로 분리 후 품사를 부착하여 튜플로 반환
