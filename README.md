@@ -100,5 +100,17 @@
         - 의미는 문서와 단어를 연결하는 매개체 → 축소된 차원이 그 역할
         - k개의 축소된 차원은 각각 잠재된 의미를 표현
     * sklearn의 TruncatedSVD() 클래스 활용 → Sparse 벡터도 이용 가능
-        - singularvalues 속성, components_ 속성 등 존재 → np.diag(svd.singularvalues).dot(svd.components_)
+        - singular_values_ 속성, components_ 속성 등 존재 → np.diag(svd.singular_values_).dot(svd.components_)
+3. tSNE를 이용한 시각화와 차원 축소
+    * tSNE : 다차원 데이터 사이 거리를 가장 잘 보존하는 2차원 좌표를 찾기 위해 사용(MDS와 유사?)
+    * sklearn의 TSNE() 클래스 활용 → TSNE() 클래스는 transform() 메서드 없이 fit_transform()만 존재하는듯
+    * LSA를 이용해 차원 축소를 한 후 tSNE를 통해 시각화 하면 Semantic에 따른 분류를 2차원에 표현 가능
+
+### Chapter.7 토픽 모델링으로 주제 찾기
+1. 토픽 모델링(Topic Modeling)
+    * 다양한 문서 집합에 내재한 토픽을 파악할 때 쓰는 기법 → 예측보다는 내용의 분석 자체가 목적
+    * 함께 사용되는 단어의 집합으로 문서에 담긴 토픽을 표현
+2. Latent Dirichlet Allocation(LDA)
+    * LDA : Latent Topic들을 유추하고자 하는 통계적 방법론
+    * LDA의 기본 가정 : 문서를 구성하는 몇 개의 토픽이 존재, 각 토픽은 단어의 집합으로 구성
     
