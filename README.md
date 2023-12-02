@@ -113,4 +113,16 @@
 2. Latent Dirichlet Allocation(LDA)
     * LDA : Latent Topic들을 유추하고자 하는 통계적 방법론
     * LDA의 기본 가정 : 문서를 구성하는 몇 개의 토픽이 존재, 각 토픽은 단어의 집합으로 구성
+    * Corpus 속 여러 Topic을 선택하는데 다항분포 필요. Topic 속 여러 단어를 선택하는데 다항분포 필요
+        - 다항분포의 Conjugate Prior가 디리클레 분포 → LDA는 디리클레 분포 사용
+    * 성능에 대한 척도 : Perplexity 및 Topic Coherence
+        - Perplexity : 값이 작을수록 토픽 모델이 문서집합을 잘 반영
+        - Topic Coherence : 각 토픽에서 상위 비중을 차지하는 단어들이 의미적으로 유사한지. 값이 클수록 좋음
+        - 단, 토픽의 해석이 사람이 보기에 자연스러운 것이 더 중요
+3. sklearn과 토픽 모델링
+    * sklearn의 LatentDirichletAllocation() 클래스 활용
+        - n_components, topic_word_prior, doc_topic_prior, learning_method 등 파라미터 존재
+        - topic_word_prior : 토픽의 사전 단어분포를 결정하는 파라미터. default= 1/n_components, 0.1 내외 추천
+        - doc_topic_prior : 문서의 사전 토픽분포를 결정하는 파라미터. default= 1/n_components, 1.0 내외 추천
+    * lda.components_를 활용하여 토픽의 단어 분포를 보고 토픽의 내용을 짐작
     
