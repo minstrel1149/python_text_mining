@@ -79,6 +79,7 @@
 1. 머신러닝과 문서 분류
     * Naive Bayes : sklearn의 MultinomialNB() 클래스 활용
         - 원칙적으로는 Discrete한 X에 대해서 적용해야하나 Continuous에도 잘 작용 → Tfidf 결과 활용 가능
+        - 참고 : MultinomialNB() 클래스는 X에 Negative Value를 허용하지 않음
     * Logistic Regression : sklearn의 LogisticRegression() 클래스 활용
         - Binary일 때와 Multiclass일 때 원래는 서로 다른 알고리즘이나 sklearn에서는 구분 없이 사용 가능
         - L1 Penalty(solver='liblinear') 혹은 L2 Penalty 활용
@@ -88,3 +89,16 @@
     * BOW 기반 방식은 벡터의 크기가 커서 Overfitting의 문제 → 많아야 Trigram까지 쓰는 것이 일반적
     * Vectorizer에서 ngram_range(min, max) 파라미터 삽입
     * 긴 단어 시퀀스로 인한 문맥은 여전히 파악 불가 → 딥러닝 방식 필요
+
+### Chapter.6 차원 축소
+1. 주성분 분석(PCA)
+    * PCA : 데이터의 분산을 최대한 보존하는 새로운 축을 찾아 변환함으로써 차원을 축소
+    * sklearn의 PCA() 클래스 활용 → Sparse 벡터는 Dense 벡터로 바꿔줘야 사용 가능
+        - explained_variance_ratio_ 속성으로 보존된 분산의 비중 확인 가능
+2. 잠재 의미 분석(LSA, Latent Semantic Analysis)
+    * LSA : 문서 및 단어들의 잠재된 의미 분석 가능
+        - 의미는 문서와 단어를 연결하는 매개체 → 축소된 차원이 그 역할
+        - k개의 축소된 차원은 각각 잠재된 의미를 표현
+    * sklearn의 TruncatedSVD() 클래스 활용 → Sparse 벡터도 이용 가능
+        - singularvalues 속성, components_ 속성 등 존재 → np.diag(svd.singularvalues).dot(svd.components_)
+    
