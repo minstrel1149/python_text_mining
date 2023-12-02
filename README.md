@@ -72,3 +72,9 @@
         - Document Term Matrix는 문서를 행으로, 단어를 열로 해서 빈도를 나타낸 행렬
     * 코사인 유사도(Cosine Similarity)
         - Scikit-Learn의 cosine_similarity 함수를 통해 Corpus 내 문서 간 유사도 파악 가능
+3. TF-IDF를 통한 카운트 벡터의 발전
+    * TfidfVectorizer() 혹은 TfidfTransformer() 클래스 활용
+
+### Chapter.5 BOW 기반의 문서 분류
+1. 머신러닝과 문서 분류
+    * 
