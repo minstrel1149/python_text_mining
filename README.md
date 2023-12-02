@@ -64,17 +64,22 @@
 1. 카운트 기반 문서 표현의 개념
     * 각 단어를 Feature로 두고, 그 단어가 텍스터에서 나타난 횟수를 값으로 표현
     * 성질 상 Sparse 벡터의 형태로 구성 → 효율적으로 처리할 수 있는 방법이 필요
-2. Scikit-Learn으로 카운트 벡터 생성
+2. sklearn으로 카운트 벡터 생성
     * CountVectorizer() 클래스 활용
         - tokenizer, stop_words, ngram_range, max_df, min_df, max_features, binary 등 파라미터
         - 한글의 경우 KoNLPy를 통한 형태소 분석으로 별도의 tokenizer 활용
         - fit_transform(doc) 메서드 적용하면 Compressed Sparse Row format의 Sparse Matrix 반환 → toarray() 메서드 활용 가능
         - Document Term Matrix는 문서를 행으로, 단어를 열로 해서 빈도를 나타낸 행렬
     * 코사인 유사도(Cosine Similarity)
-        - Scikit-Learn의 cosine_similarity 함수를 통해 Corpus 내 문서 간 유사도 파악 가능
+        - sklearn의 cosine_similarity 함수를 통해 Corpus 내 문서 간 유사도 파악 가능
 3. TF-IDF를 통한 카운트 벡터의 발전
     * TfidfVectorizer() 혹은 TfidfTransformer() 클래스 활용
 
 ### Chapter.5 BOW 기반의 문서 분류
 1. 머신러닝과 문서 분류
-    * 
+    * Naive Bayes : sklearn의 MultinomialNB() 클래스 활용
+        - 원칙적으로는 Discrete한 X에 대해서 적용해야하나 Continuous에도 잘 작용 → Tfidf 결과 활용 가능
+    * Logistic Regression : sklearn의 LogisticRegression() 클래스 활용
+        - Binary일 때와 Multiclass일 때 원래는 서로 다른 알고리즘이나 sklearn에서는 구분 없이 사용 가능
+        - L1 Penalty(solver='liblinear') 혹은 L2 Penalty 활용
+    * Tree Model : 트리 모델은 일반적으로 텍스트의 카운트 벡터와 잘 맞지 않는 경향이 있음
