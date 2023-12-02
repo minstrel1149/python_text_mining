@@ -83,3 +83,8 @@
         - Binary일 때와 Multiclass일 때 원래는 서로 다른 알고리즘이나 sklearn에서는 구분 없이 사용 가능
         - L1 Penalty(solver='liblinear') 혹은 L2 Penalty 활용
     * Tree Model : 트리 모델은 일반적으로 텍스트의 카운트 벡터와 잘 맞지 않는 경향이 있음
+2. N-gram을 이용한 카운트 벡터의 보완
+    * N-gram : 연속적인 단어의 나열. Unigram, Bigram, Trigram 등
+    * BOW 기반 방식은 벡터의 크기가 커서 Overfitting의 문제 → 많아야 Trigram까지 쓰는 것이 일반적
+    * Vectorizer에서 ngram_range(min, max) 파라미터 삽입
+    * 긴 단어 시퀀스로 인한 문맥은 여전히 파악 불가 → 딥러닝 방식 필요
