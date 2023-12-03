@@ -125,4 +125,18 @@
         - topic_word_prior : 토픽의 사전 단어분포를 결정하는 파라미터. default= 1/n_components, 0.1 내외 추천
         - doc_topic_prior : 문서의 사전 토픽분포를 결정하는 파라미터. default= 1/n_components, 1.0 내외 추천
     * lda.components_를 활용하여 토픽의 단어 분포를 보고 토픽의 내용을 짐작
+4. Gensim을 이용한 토픽 모델링
+    * Dictionary() 클래스를 통해 토큰화 결과로부터 내부적으로 사용하는 id를 매칭하는 사전 생성
+        - keep_n, no_below, no_above 파라미터 활용
+        - doc2bow(text) 메서드로 카운트 벡터, 즉 BOW 형태로 변환 → Gensim에서는 이 결과를 corpus로 지칭
+    * LdaModel() 클래스를 통해 LDA 모델링을 수행
+        - corpus, num_topics, id2word, passes, alphs, eta 등 파라미터
+        - corpus는 BOW 결과, id2word는 만들어진 사전
+        - print_topics() 메서드, get_document_topics(corpus) 등 메서드 활용 가능
+    * pyLDAvis 라이브러리로 시각화 가능
+    * Perplexity와 Topic Coherence
+        - Perplexity : log_perplexity(corpus) 메서드 사용
+        - Topic Coherence : CoherenceModel 클래스 사용 → 코드 내 show_coherence 함수 참고
+5. 토픽 트렌드(Topic trend)
+    * 토픽 트렌드 : 주어진 시간 동안 토픽들의 비중이 어떻게 변화했는지 확인 → 주요 토픽의 추이 분석
     
