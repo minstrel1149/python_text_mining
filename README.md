@@ -149,4 +149,24 @@
         - corpus, num_topics, id2word, passes, alphs, eta, time_slice 등 파라미터
         - time_slice : 순서대로 정렬된 각 시간 단위에 속한 문서의 수
         - 그런데, LdaMulticore와 달리 멀티코어 개념이 없어서 엄청난 시간 소요.. 이걸 쓸 수 있을까..?
-    
+
+### Chapter.8 감성 분석
+1. 감성 분석(Sentiment Analysis)
+    * 텍스트에 나타난 의견, 평가, 태도 등 주관적인 정보를 Positive, Neutral, Negative로 분류
+    * 어휘 기반(Lexicon-Based)의 분석 및 머신러닝 기반의 분석 존재
+    * 감성의 정도를 극성(Polarity)로 표현 → 0이면 Neutral, 양수면 Positive
+2. 어휘 기반(Lexicon-Based) 감성 분석
+    * 모든 단어에 대해 긍정/부정의 감성을 붙여 감성 사전 구축 → 이를 기반으로 분석 수행
+        - 하위 단어로부터 상위 구로 이동하면서 단계적으로 긍정/부정을 결정하는 방식
+    * TextBlob 라이브러리를 이용한 감성 분석
+        - TextBlob() 클래스에 대하여 sentiment 속성 활용 → polarity와 subjectivity(주관 정도)
+        - sentiment_TextBlob(docs)과 같은 함수를 이용하여 처리 → 코드 참고
+    * AFINN 라이브러리를 이용한 감성 분석
+        - Afinn() 클래스에 대하여 score(text) 메서드 활용
+    * VADER 라이브러리를 이용한 감성 분석
+        - 소셜 미디어의 텍스트에서 좋은 성능이 나올 수 있도록 개발
+        - nltk.sentiment.vader의 SentimentIntensityAnalyzer() 클래스 활용
+        - polarity_scores(doc)의 compound 키 활용
+    * 정확도가 그리 높지는 않은 것이 문제
+3. 머신러닝 기반 감성 분석
+    * 카운트 벡터 등에 대하여 target 값을 가지고 문서 분류를 수행하는 형태로 진행
