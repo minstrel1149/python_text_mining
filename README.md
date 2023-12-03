@@ -139,4 +139,14 @@
         - Topic Coherence : CoherenceModel 클래스 사용 → 코드 내 show_coherence 함수 참고
 5. 토픽 트렌드(Topic trend)
     * 토픽 트렌드 : 주어진 시간 동안 토픽들의 비중이 어떻게 변화했는지 확인 → 주요 토픽의 추이 분석
+        - 각 문서의 날짜와 카운트 벡터를 결합하여 트렌드 확인 → groupby() 메서드를 통해 평균 확인
+        - 날짜의 변화에 따라 토픽에 대한 관심도 변화 확인 가능 → 시각화
+        - 초기에 비중이 높았다가 줄어드는 토픽은 Cold Topic, 뒤로 가면서 비중이 높아지는 토픽은 Hot Topic
+6. 동적 토픽 모델링(Dynamic Topic Modeling)
+    * 동적 토픽 모델링 : 최대한 이전 토픽을 반영하여 다음 시간의 토픽을 추출
+        - 토픽은 단어의 확률분포로 표현, 시간이 지나면서 토픽의 내용이 바뀔 수 있기 때문에 Dynamic이 필요
+    * Gensim의 LdaSeqModel() 클래스 활용
+        - corpus, num_topics, id2word, passes, alphs, eta, time_slice 등 파라미터
+        - time_slice : 순서대로 정렬된 각 시간 단위에 속한 문서의 수
+        - 그런데, LdaMulticore와 달리 멀티코어 개념이 없어서 엄청난 시간 소요.. 이걸 쓸 수 있을까..?
     
