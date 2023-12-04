@@ -206,3 +206,18 @@
         - 모형 자체를 전이하고 Embedding 벡터는 주어진 문장을 모형에 적용시켜 생성
     * Bi-LSTM을 사용해 Embedding 수행
     * BERT의 중요한 기반. 현재는 BERT에 밀려 활용도 저하
+3. Doc2Vec - 문맥을 고려한 문서 임베딩
+    * DM(CBOW에 문서 ID 추가) 및 DBOW(Skip-Gram에 문서 ID 추가)
+
+### Chapter.12 CNN - 이미지 분류를 응용한 문서 분류
+1. CNN(Convolutional Neural Networks)
+    * CNN : 2d matrix로부터 주변 정보를 요약해 이미지를 분류할 수 있는 특성 추출
+        - 컬러 이미지의 경우 RGB에 대한 각각 2d matrix → 3d tensor
+    * CNN의 주변 정보를 요약하는 점 → 앞뒤 단어들 간 주변 정보 요약으로 문맥 파악
+    * keras를 이용해 CNN 모델 구축
+        - keras가 제공하는 토크나이저를 사용해 모형에 적합한 형태로 입력 데이터를 변환
+        - tokenizer 객체 생성 후 fit_on_texts(corpus), texts_to_sequences(corpus) 등의 메서드 활용
+        - pad_sequences(X) 함수를 통해 같은 길이를 갖도록 Truncating 및 Padding
+        - Embedding 레이어, Conv1D + Maxpooling1D 레이어, Dense 레이어를 통과
+        - model의 compile() 메서드를 이용해 optimizer와 loss 지정 → fit() 메서드로 학습
+        - model의 evaluate() 메서드로 평가
