@@ -270,7 +270,7 @@
         - Fine-tuning을 통해 미리 만들어진 가중치들이 목표에 맞게 세밀하게 조정
 3. 자동 클래스를 이용한 Tokenizer와 모델
     * AutoTokenizer() 클래스, AutoModelForSequenceClassification() 클래스 활용
-        - from.pretrained(prelm) 메서드를 이용하여 객체 설정
+        - from_pretrained(prelm) 메서드를 이용하여 객체 설정
 
 ### Chapter.15 BERT 사전학습 모형에 대한 미세조정학습
 1. BERT 학습을 위한 preprocessing
@@ -278,4 +278,16 @@
         - Token Embedding(input_ids) : 단어 + 특수 토큰(CLS, SEP)
         - Segment Embedding(token_type_ids) : 문장을 구분. 첫 문장의 끝을 나타내는 [SEP]까지 0, 나머지는 1
         - Position Embedding : BERT 토크나이저가 Position Embedding을 반환하지는 않음
-        - 기타(attention_mast) : Self-Attention에의 포함 여부
+        - 기타(attention_mask) : Self-Attention에의 포함 여부
+2. Transformer의 Trainer를 이용한 Fine-tuning
+    * torch의 Dataset 클래스를 상속받아 새로운 클래스 생성(OurDataset)
+    * load_metric을 이용한 함수 생성을 통해 Trainer를 선언할 때 파라미터로 넘겨줌
+    * TrainingArguments() 클래스를 이용한 정의
+        - output_dir, num_train_epochs, per_device_train/eval_batch_size 등 파라미터
+    * Trainer() 클래스를 이용한 정의
+        - model, args, train_dataset, compute_metrics 등 파라미터
+3. Pytorch를 이용한 Fine-tuning
+    * DataLoader() 클래스를 이용하여 batch_learning 작업 수행
+    * 원형의 BERT 모델에 직접 Classifier 추가 → BertModel 클래스 활용
+    * BERT Pre-trained 모델을 포함하는 NN 모델 선언 → nn.Module 상속
+        - 출력 벡터의 크기인 token_size 설정 필요 → output.last_hidden_state[:, 0, :]
