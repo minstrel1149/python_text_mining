@@ -252,3 +252,19 @@
         - Decoder는 Shifted 출력 시퀀스를 입력으로 받는 형태 → 토큰을 하나씩 예측
         - Masked Multi-head Attention : 순방향으로만 Attention이 향하는 것을 구현한 메커니즘
         - Encoder-Decoder Multi-head Attention : query를 던지는 단어는 Decoder에서 생성하는 단어
+
+### Chapter.14 BERT의 이해와 간단한 활용
+1. 언어 모델(Language Model)
+    * LM : 문장 혹은 단어의 시퀀스에 대해 확률을 할당하는 모델 → 자연스러운 문장에 더 높은 확률을 부여
+        - 시퀀스가 나타날 확률은 각 단어들의 결합확률로 표현 → P(output|input) 형태의 조건부 확률의 곱으로 계산
+        - LM은 언어에 대한 이해를 높이는 학습. Unsupervised Learning이 가능
+    * LM으로 언어에 대한 이해를 높인 후 Fine-tuning Supervised Learning 수행 가능
+        - Pre-trained LM : 사전에 LM을 이용하여 미리 학습된 모델 → Transfer Learning 가능
+        - 다양한 자연어 처리 문제를 해결할 수 있는 모델로 자연스럽게 확장
+2. BERT의 구조
+    * BERT : Transformer의 Encoder 부분만 사용한 모형 → 언어에 대한 이해를 높이는 것이 목적
+        - Encoder의 Bidirectional Self-Attention 사용
+    * Pre-training과 Fine-tuning 단계로 학습 진행
+        - Masking을 통하여 LM을 학습 → Masked LM(단어를 가리고 가린 단어를 예측하는 형태)
+        - Hugging Face에서 Pre-trained 모델들을 무료로 공개
+        - Fine-tuning을 통해 미리 만들어진 가중치들이 목표에 맞게 세밀하게 조정
