@@ -180,6 +180,13 @@
         - One-hot 벡터를 Dense 벡터로 변경(Embedding)한 후 입력 크기에 맞게 잘라내어 입력으로 사용
         - (단어의 수, 한 단어를 표현하는 Dense 벡터의 크기)의 2차원 행렬이 입력
         - 마지막 출력 노드를 이용해 문서를 분류
+    * keras를 이용해 RNN모델 구축
+        - keras가 제공하는 토크나이저를 사용해 모형에 적합한 형태로 입력 데이터를 변환
+        - tokenizer 객체 생성 후 fit_on_texts(corpus), texts_to_sequences(corpus) 등의 메서드 활용
+        - pad_sequences(X) 함수를 통해 같은 길이를 갖도록 Truncating 및 Padding
+        - Embedding 레이어, SimpleRNN 레이어, Dense 레이어를 통과
+        - model의 compile() 메서드를 이용해 optimizer와 loss 지정 → fit() 메서드로 학습
+        - model의 evaluate() 메서드로 평가
 2. 워드 임베딩(Word Embedding)
     * 워드 임베딩 : 단어에 대해 One-hot 인코딩 수행 후 다시 축소된 Dense 벡터로 변환하는 과정
         - 단어의 순서를 고려해 문맥 파악 가능
