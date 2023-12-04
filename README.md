@@ -219,5 +219,36 @@
         - tokenizer 객체 생성 후 fit_on_texts(corpus), texts_to_sequences(corpus) 등의 메서드 활용
         - pad_sequences(X) 함수를 통해 같은 길이를 갖도록 Truncating 및 Padding
         - Embedding 레이어, Conv1D + Maxpooling1D 레이어, Dense 레이어를 통과
+        - Conv1D에서 필터의 수가 몇 단어로 끊어가면서 문맥을 파악하냐의 개념인듯?
         - model의 compile() 메서드를 이용해 optimizer와 loss 지정 → fit() 메서드로 학습
         - model의 evaluate() 메서드로 평가
+
+### Chapter.13 어텐션(Attention)과 트랜스포머(Transformer)
+1. Seq2Seq(Sequence to Sequence) : 번역에서 시작된 딥러닝 기법
+    * Seq2Seq : 입력으로 일련의 단어들이 들어오고 이를 이용하여 다시 일련의 단어를 생성하는 기법
+        - 문장에 대해 이해한 내용을 지정한 형태로 저장하고 거기서 출발 → 워드 임베딩 필수
+    * Encoder와 Decoder
+        - Encoder는 문장을 이해하는 역할 → 입력은 번역하고자 하는 영어 문장
+        - 마지막 <엔드> 입력을 받은 은닉층 노드는 전체의 문맥 정보를 내포
+        - Decoder는 이 문맥 정보로부터 번역어 문장을 생성하는 역할 → 각 단어 예측 단계가 순차적으로 실행
+2. Attention을 이용한 성능의 향상
+    * 문맥 정보가 Encoder의 마지막 벡터 하나에 집중되는 현상을 해결 → Context 벡터 활용
+    * Context 벡터가 Encoder의 마지막 벡터와 Decoder의 입력 값과 합쳐져서 단어 생성
+    * Self-Attention : 같은 문장 내에서의 Attention → 문장 내에서의 단어 간 영향을 표현
+        - 어떤 단어를 벡터로 임베딩할 때 그 단어에 영향을 미치는 다른 단어들 정보를 함께 인코딩
+        - 인코딩 과정에서 문맥에 대한 정보는 각 단어에 골고루 분포
+3. 트랜스포머(Transformer) : Attention is all you need
+    * 기존 Seq2Seq 모델에서 오직 Attention에만 의지한 모형을 제안
+    * Encoder에서 Self-Attention 정보를 추출
+    * Decoder는 각 단어의 Embedding 벡터를 이용해 단어를 하나씩 예측, 자신의 Self-Attention 정보도 함께 사용
+    * 토큰 임베딩으로 시작 + 위치 인코딩
+        - Charater-based Tokenization, BPE, WordPiece, SentencePiece 등 다양한 토큰화 사용
+        - 입력 시퀀스에서는 전체에 대하여, 출력 시퀀스에서는 현재까지 만들어진 시퀀스에 대하여 단계적으로
+    * Encoder 층은 Multi-head Attention과 FeedForward 신경망으로 구성
+        - Encoder의 Self-Attention은 query, key, value 세 개의 벡터를 이용하여 계산
+        - 나에게 영향을 미치는 단어들의 정보를 결합 → 문맥을 차츰 파악
+        - Multi-head Attention은 여러 Self-Attention을 병렬로 연결한 개념
+    * Decoder 층은 Masked/Encoder-Decoder Multi-head Attention과 FeedForward 신경망으로 구성
+        - Decoder는 Shifted 출력 시퀀스를 입력으로 받는 형태 → 토큰을 하나씩 예측
+        - Masked Multi-head Attention : 순방향으로만 Attention이 향하는 것을 구현한 메커니즘
+        - Encoder-Decoder Multi-head Attention : query를 던지는 단어는 Decoder에서 생성하는 단어
