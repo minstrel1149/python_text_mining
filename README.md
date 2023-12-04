@@ -184,7 +184,7 @@
         - keras가 제공하는 토크나이저를 사용해 모형에 적합한 형태로 입력 데이터를 변환
         - tokenizer 객체 생성 후 fit_on_texts(corpus), texts_to_sequences(corpus) 등의 메서드 활용
         - pad_sequences(X) 함수를 통해 같은 길이를 갖도록 Truncating 및 Padding
-        - Embedding 레이어, SimpleRNN 레이어, Dense 레이어를 통과
+        - Embedding 레이어, GRU 레이어, Dense 레이어를 통과
         - model의 compile() 메서드를 이용해 optimizer와 loss 지정 → fit() 메서드로 학습
         - model의 evaluate() 메서드로 평가
 2. 워드 임베딩(Word Embedding)
@@ -193,3 +193,16 @@
         - BOW에서 문서가 1d 벡터, 워드 임베딩 후에는 2d 행렬 → corpus는 3d tensor가 되는 형태
         - 연산 효율성 증대, 대상 간의 의미적 유사도 계산, 의미적 정보 함축, Transfer Learning 등 가능
         - 학습된 가중치 행렬을 이용해 Dense 벡터로 변경 → 해당 행렬을 이용해 타 문제에 적용
+
+### Chapter.11 Word2Vec, ELMo, Doc2Vec의 이해
+1. Word2Vec - 대표적인 워드 임베딩 기법
+    * CBOW(Continuous Bag of Words), Skip-Gram 두 가지 학습 방식
+    * CBOW : 주변의 단어를 이용해 중심 단어를 예측하도록 학습
+    * Skip-Gram : 중심의 한 단어를 이용해 주변 단어를 예측
+    * Gensim의 api를 사용하여 기존 학습된 Embedding 벡터 활용 가능
+        - similarity(), most_similar(), doesnt_match(), distance() 메서드 등
+2. ELMo(Embedding from Language Model) - 문맥에 따른 단어 의미의 구분
+    * Word2Vec에서는 Embedding 벡터가 고정, but ELMo는 주어진 문장에 맞게 가변적 벡터 생성
+        - 모형 자체를 전이하고 Embedding 벡터는 주어진 문장을 모형에 적용시켜 생성
+    * Bi-LSTM을 사용해 Embedding 수행
+    * BERT의 중요한 기반. 현재는 BERT에 밀려 활용도 저하
