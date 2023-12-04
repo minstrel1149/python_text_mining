@@ -268,3 +268,14 @@
         - Masking을 통하여 LM을 학습 → Masked LM(단어를 가리고 가린 단어를 예측하는 형태)
         - Hugging Face에서 Pre-trained 모델들을 무료로 공개
         - Fine-tuning을 통해 미리 만들어진 가중치들이 목표에 맞게 세밀하게 조정
+3. 자동 클래스를 이용한 Tokenizer와 모델
+    * AutoTokenizer() 클래스, AutoModelForSequenceClassification() 클래스 활용
+        - from.pretrained(prelm) 메서드를 이용하여 객체 설정
+
+### Chapter.15 BERT 사전학습 모형에 대한 미세조정학습
+1. BERT 학습을 위한 preprocessing
+    * 입력 문장들을 표현하기 위해 세 개의 Embedding 이용
+        - Token Embedding(input_ids) : 단어 + 특수 토큰(CLS, SEP)
+        - Segment Embedding(token_type_ids) : 문장을 구분. 첫 문장의 끝을 나타내는 [SEP]까지 0, 나머지는 1
+        - Position Embedding : BERT 토크나이저가 Position Embedding을 반환하지는 않음
+        - 기타(attention_mast) : Self-Attention에의 포함 여부
