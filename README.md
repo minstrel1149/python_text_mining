@@ -284,6 +284,8 @@
     * load_metric을 이용한 함수 생성을 통해 Trainer를 선언할 때 파라미터로 넘겨줌
     * TrainingArguments() 클래스를 이용한 정의
         - output_dir, num_train_epochs, per_device_train/eval_batch_size 등 파라미터
+        - weight_decay 파라미터를 활용한 Overfitting 방지
+        - warmup_steps 파라미터를 통한 Learning Rate Scheduler에서의 Warmup 구간 지정
     * Trainer() 클래스를 이용한 정의
         - model, args, train_dataset, compute_metrics 등 파라미터
 3. Pytorch를 이용한 Fine-tuning
@@ -291,3 +293,5 @@
     * 원형의 BERT 모델에 직접 Classifier 추가 → BertModel 클래스 활용
     * BERT Pre-trained 모델을 포함하는 NN 모델 선언 → nn.Module 상속
         - 출력 벡터의 크기인 token_size 설정 필요 → output.last_hidden_state[:, 0, :]
+4. 한국어 문서에 대한 BERT 활용
+    * base_multilingual-cased 모델 혹은 SKTBrain의 KoBERT 활용 가능
