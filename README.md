@@ -298,3 +298,28 @@
     * base_multilingual-cased 모델 혹은 SKTBrain의 KoBERT 활용 가능
     * multiclass classification의 경우 model에 num_labels=n, problem_type='multi_label_classification' 추가
         - target matrix는 one-hot 벡터 형태여야
+
+### Chapter.17 트랜스포머 변형 모형(X-formers)의 현황
+1. X-formers의 다양한 Tokenizer
+    * Out-of-vocabulary 문제 : UNK 토큰의 비중이 커지면 모델의 성능에 결정적 영향
+        - UNK 토큰의 수를 줄이는 것이 중요 → Word-based Tokenization을 넘어선 방법이 필요
+        - Subword Segmentation 제안 → Subword의 조합으로 다양한 단어를 표현 → UNK 토큰 수 감소
+    * BPE(Byte-pair Encoding) Tokenizer
+        - 문자 단위로 구성하고 빈도가 높은 쌍을 단계적으로 통합하는 방식
+        - Character-based로 진행되므로 UNK 미존재
+    * WordPiece Tokenizer
+        - Corpus의 Likelihood를 높이는 쌍을 선택하여 병합(pair / first*second)
+        - BERT에서 Tokenizer로 사용
+        - 첫 문자를 제외한 나머지 문자 앞에 '##'을 추가
+    * SentencePiece Uni-gram Tokenizer
+        - 모든 가능한 어휘 집합(모든 단어들의 substring)에서 시작하여 토큰을 제거 → 제거하는 기준이 핵심
+        - Corpus의 Loss를 가장 적게 증가시키는 토큰을 선택하여 제거
+        - 모든 단어에 대해 토큰화 확률을 계산하는 것은 많은 연산시간 필요
+2. GPT 기반 X-formers
+    * GPT(Generative Pre-trained Transformers) : Transformer의 Decoder로 LM Pre-training 수행
+        - Pre-training + Fine-tuning 2단계 학습 모형의 시작점
+    * GPT-2 : Pre-training만으로 바로 사용할 수 있는 모형을 제안 → Zero-shot task
+        - P(output|input, task)를 추정하는 모델로 확장
+        - task에 대한 부분과 출력을 명시적으로 지정할 필요가 없음
+    * GPT-3 : Few-shot Learning으로 인한 성능 향상에 초점
+        - GPT-3 기반의 Reinforcement Learning from Human Feedback을 통해 InstructGPT, ChatGPT 등으로 발전
