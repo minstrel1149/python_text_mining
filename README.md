@@ -65,7 +65,7 @@
     * 각 단어를 Feature로 두고, 그 단어가 텍스터에서 나타난 횟수를 값으로 표현
     * 성질 상 Sparse 벡터의 형태로 구성 → 효율적으로 처리할 수 있는 방법이 필요
 2. sklearn으로 카운트 벡터 생성
-    * CountVectorizer() 클래스 활용
+    * CountVectorizer 클래스 활용
         - tokenizer, stop_words, ngram_range, max_df, min_df, max_features, binary 등 파라미터
         - 한글의 경우 KoNLPy를 통한 형태소 분석으로 별도의 tokenizer 활용
         - fit_transform(doc) 메서드 적용하면 Compressed Sparse Row format의 Sparse Matrix 반환 → toarray() 메서드 활용 가능
@@ -73,14 +73,14 @@
     * 코사인 유사도(Cosine Similarity)
         - sklearn의 cosine_similarity 함수를 통해 Corpus 내 문서 간 유사도 파악 가능
 3. TF-IDF를 통한 카운트 벡터의 발전
-    * TfidfVectorizer() 혹은 TfidfTransformer() 클래스 활용
+    * TfidfVectorizer 혹은 TfidfTransformer 클래스 활용
 
 ### Chapter.5 BOW 기반의 문서 분류
 1. 머신러닝과 문서 분류
-    * Naive Bayes : sklearn의 MultinomialNB() 클래스 활용
+    * Naive Bayes : sklearn의 MultinomialNB 클래스 활용
         - 원칙적으로는 Discrete한 X에 대해서 적용해야하나 Continuous에도 잘 작용 → Tfidf 결과 활용 가능
-        - 참고 : MultinomialNB() 클래스는 X에 Negative Value를 허용하지 않음
-    * Logistic Regression : sklearn의 LogisticRegression() 클래스 활용
+        - 참고 : MultinomialNB 클래스는 X에 Negative Value를 허용하지 않음
+    * Logistic Regression : sklearn의 LogisticRegression 클래스 활용
         - Binary일 때와 Multiclass일 때 원래는 서로 다른 알고리즘이나 sklearn에서는 구분 없이 사용 가능
         - L1 Penalty(solver='liblinear') 혹은 L2 Penalty 활용
     * Tree Model : 트리 모델은 일반적으로 텍스트의 카운트 벡터와 잘 맞지 않는 경향이 있음
@@ -93,17 +93,17 @@
 ### Chapter.6 차원 축소
 1. 주성분 분석(PCA)
     * PCA : 데이터의 분산을 최대한 보존하는 새로운 축을 찾아 변환함으로써 차원을 축소
-    * sklearn의 PCA() 클래스 활용 → Sparse 벡터는 Dense 벡터로 바꿔줘야 사용 가능
+    * sklearn의 PCA 클래스 활용 → Sparse 벡터는 Dense 벡터로 바꿔줘야 사용 가능
         - explained_variance_ratio_ 속성으로 보존된 분산의 비중 확인 가능
 2. 잠재 의미 분석(LSA, Latent Semantic Analysis)
     * LSA : 문서 및 단어들의 잠재된 의미 분석 가능
         - 의미는 문서와 단어를 연결하는 매개체 → 축소된 차원이 그 역할
         - k개의 축소된 차원은 각각 잠재된 의미를 표현
-    * sklearn의 TruncatedSVD() 클래스 활용 → Sparse 벡터도 이용 가능
+    * sklearn의 TruncatedSVD 클래스 활용 → Sparse 벡터도 이용 가능
         - singular_values_ 속성, components_ 속성 등 존재 → np.diag(svd.singular_values_).dot(svd.components_)
 3. tSNE를 이용한 시각화와 차원 축소
     * tSNE : 다차원 데이터 사이 거리를 가장 잘 보존하는 2차원 좌표를 찾기 위해 사용(MDS와 유사?)
-    * sklearn의 TSNE() 클래스 활용 → TSNE() 클래스는 transform() 메서드 없이 fit_transform()만 존재하는듯
+    * sklearn의 TSNE 클래스 활용 → TSNE 클래스는 transform() 메서드 없이 fit_transform()만 존재하는듯
     * LSA를 이용해 차원 축소를 한 후 tSNE를 통해 시각화 하면 Semantic에 따른 분류를 2차원에 표현 가능
 
 ### Chapter.7 토픽 모델링으로 주제 찾기
@@ -120,16 +120,16 @@
         - Topic Coherence : 각 토픽에서 상위 비중을 차지하는 단어들이 의미적으로 유사한지. 값이 클수록 좋음
         - 단, 토픽의 해석이 사람이 보기에 자연스러운 것이 더 중요
 3. sklearn과 토픽 모델링
-    * sklearn의 LatentDirichletAllocation() 클래스 활용
+    * sklearn의 LatentDirichletAllocation 클래스 활용
         - n_components, topic_word_prior, doc_topic_prior, learning_method 등 파라미터 존재
         - topic_word_prior : 토픽의 사전 단어분포를 결정하는 파라미터. default= 1/n_components, 0.1 내외 추천
         - doc_topic_prior : 문서의 사전 토픽분포를 결정하는 파라미터. default= 1/n_components, 1.0 내외 추천
     * lda.components_를 활용하여 토픽의 단어 분포를 보고 토픽의 내용을 짐작
 4. Gensim을 이용한 토픽 모델링
-    * Dictionary() 클래스를 통해 토큰화 결과로부터 내부적으로 사용하는 id를 매칭하는 사전 생성
+    * Dictionary 클래스를 통해 토큰화 결과로부터 내부적으로 사용하는 id를 매칭하는 사전 생성
         - keep_n, no_below, no_above 파라미터 활용
         - doc2bow(text) 메서드로 카운트 벡터, 즉 BOW 형태로 변환 → Gensim에서는 이 결과를 corpus로 지칭
-    * LdaModel() 클래스를 통해 LDA 모델링을 수행
+    * LdaModel 클래스를 통해 LDA 모델링을 수행
         - corpus, num_topics, id2word, passes, alphs, eta 등 파라미터
         - corpus는 BOW 결과, id2word는 만들어진 사전
         - print_topics() 메서드, get_document_topics(corpus) 등 메서드 활용 가능
@@ -145,7 +145,7 @@
 6. 동적 토픽 모델링(Dynamic Topic Modeling)
     * 동적 토픽 모델링 : 최대한 이전 토픽을 반영하여 다음 시간의 토픽을 추출
         - 토픽은 단어의 확률분포로 표현, 시간이 지나면서 토픽의 내용이 바뀔 수 있기 때문에 Dynamic이 필요
-    * Gensim의 LdaSeqModel() 클래스 활용
+    * Gensim의 LdaSeqModel 클래스 활용
         - corpus, num_topics, id2word, passes, alphs, eta, time_slice 등 파라미터
         - time_slice : 순서대로 정렬된 각 시간 단위에 속한 문서의 수
         - 그런데, LdaMulticore와 달리 멀티코어 개념이 없어서 엄청난 시간 소요.. 이걸 쓸 수 있을까..?
@@ -159,13 +159,13 @@
     * 모든 단어에 대해 긍정/부정의 감성을 붙여 감성 사전 구축 → 이를 기반으로 분석 수행
         - 하위 단어로부터 상위 구로 이동하면서 단계적으로 긍정/부정을 결정하는 방식
     * TextBlob 라이브러리를 이용한 감성 분석
-        - TextBlob() 클래스에 대하여 sentiment 속성 활용 → polarity와 subjectivity(주관 정도)
+        - TextBlob 클래스에 대하여 sentiment 속성 활용 → polarity와 subjectivity(주관 정도)
         - sentiment_TextBlob(docs)과 같은 함수를 이용하여 처리 → 코드 참고
     * AFINN 라이브러리를 이용한 감성 분석
-        - Afinn() 클래스에 대하여 score(text) 메서드 활용
+        - Afinn 클래스에 대하여 score(text) 메서드 활용
     * VADER 라이브러리를 이용한 감성 분석
         - 소셜 미디어의 텍스트에서 좋은 성능이 나올 수 있도록 개발
-        - nltk.sentiment.vader의 SentimentIntensityAnalyzer() 클래스 활용
+        - nltk.sentiment.vader의 SentimentIntensityAnalyzer 클래스 활용
         - polarity_scores(doc)의 compound 키 활용
     * 정확도가 그리 높지는 않은 것이 문제
 3. 머신러닝 기반 감성 분석
@@ -269,7 +269,7 @@
         - Hugging Face에서 Pre-trained 모델들을 무료로 공개
         - Fine-tuning을 통해 미리 만들어진 가중치들이 목표에 맞게 세밀하게 조정
 3. 자동 클래스를 이용한 Tokenizer와 모델
-    * AutoTokenizer() 클래스, AutoModelForSequenceClassification() 클래스 활용
+    * AutoTokenizer 클래스, AutoModelForSequenceClassification 클래스 활용
         - from_pretrained(prelm) 메서드를 이용하여 객체 설정
 
 ### Chapter.15 BERT 사전학습 모형에 대한 미세조정학습
@@ -282,15 +282,15 @@
 2. Transformer의 Trainer를 이용한 Fine-tuning
     * torch의 Dataset 클래스를 상속받아 새로운 클래스 생성(OurDataset)
     * load_metric을 이용한 함수 생성을 통해 Trainer를 선언할 때 파라미터로 넘겨줌
-    * TrainingArguments() 클래스를 이용한 정의
+    * TrainingArguments 클래스를 이용한 정의
         - output_dir, num_train_epochs, per_device_train/eval_batch_size 등 파라미터
         - evaluation_strategy 및 eval_steps 파라미터를 이용한 valid 데이터 활용
         - weight_decay 파라미터를 활용한 Overfitting 방지
         - warmup_steps 파라미터를 통한 Learning Rate Scheduler에서의 Warmup 구간 지정
-    * Trainer() 클래스를 이용한 정의
+    * Trainer 클래스를 이용한 정의
         - model, args, train_dataset, eval_dataset, compute_metrics 등 파라미터
 3. Pytorch를 이용한 Fine-tuning
-    * DataLoader() 클래스를 이용하여 batch_learning 작업 수행
+    * DataLoader 클래스를 이용하여 batch_learning 작업 수행
     * 원형의 BERT 모델에 직접 Classifier 추가 → BertModel 클래스 활용
     * BERT Pre-trained 모델을 포함하는 NN 모델 선언 → nn.Module 상속
         - 출력 벡터의 크기인 token_size 설정 필요 → output.last_hidden_state[:, 0, :]
@@ -339,3 +339,19 @@
         - 문장 생성, 번역 등과 같은 Seq2Seq 작업에서 강점
     * T5(Text-to-Text Transfer Transformers)
         - Multi-task Pre-training 수행 → 여러 종류의 자연어 처리 작업에 대한 학습을 함께 진행
+
+### Chapter.18 트랜스포머 모형을 이용한 문서 요약
+1. 문서 요약(Summarization)의 이해
+    * Extractive Summarization과 Abstractive Summarization으로 구분
+        - Extractive Summarization : 문장의 중요도를 평가해서 순위를 매긴 후 상위의 문장을 선택
+        - Abstractive Summrization : 요약 문을 새로 생성 → Seq2Seq 모델의 대표적 응용 분야
+    * ROUGE : 문서 요약 성능 지표
+        - ROUGE-N : N-gram을 기준으로 Recall 계산
+        - ROUGE-L : LCS(Longest Common Subsequence), 즉 가장 긴 공통의 Subsequence를 이용해 F1-score 계산
+    * mT5, mBART-50 등은 한국어를 포함한 다국어 지원
+2. T5 모델과 자동 클래스를 이용한 요약
+    * tokenizer.encode() → model.generate() → tokenizer.decode() 프로세스
+    * Beam Search : model.generate() 메서드에서 num_beams 파라미터를 통해 지정
+    * no_repeat_ngram_size, min_length, max_length, early_stopping 등 역시 model.generate() 메서드에서 활용
+3. Trainer 클래스를 이용한 Fine-tuning
+    * 
