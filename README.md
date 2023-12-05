@@ -360,3 +360,21 @@
     * Seq2SeqTrainingArgument 클래스와 Seq2SeqTrainer 클래스 이용
         - args → learning_rate, save_total_limit, predict_with_generate 파라미터 등 추가
         - trainer → data_collator 파라미터 등 추가
+
+### Chapter.19 트랜스포머 모형을 이용한 질의 응답
+1. 질의 응답(Question Answering) 시스템의 이해
+    * 주어진 Context 내에서 주어진 문제에 대해 올바른 답을 생성하는 작업 → Summarization과 유사
+    * CDQA(Closed Domain)와 ODQA(Open Domain)로 구분
+    * Bi-Encoder 및 Cross-Encoder 방식 존재 → Cross-Encoder 성능이 더 좋으나 활용도의 한계
+    * Context 내에서 Document Retrieval을 이용하여 유사도가 가장 높은 문서를 추출
+        - Extractive QA와 Abstractive QA 등으로 구분
+        - Extractive QA는 Start/End index를 예측하는 모델 사용
+        - Abstractive QA는 가변 길이의 자유로운 Sequence를 생성하는 Seq2Seq 모델 사용
+    * 성능 평가 데이터셋으로 SQuAD 및 KorQuAD 존재
+    * Pre-trained LM은 대량의 데이터에서 규칙 습득 → 데이터의 편향을 그대로 학습
+2. 자동 클래스를 이용한 QA 및 Trainer 클래스를 이용한 Fine-tuning
+    * Question과 Context를 토큰화 → model 실행 → start/end_logits 속성 활용하여 답변 추출
+        - tokenizer.convert_tokens_to_string(), tokenizer.convert_ids_to_tokens() 메서드 활용
+    * Fast가 붙은 Tokenizer를 사용해야 Fine-tuning 가능
+    * load_dataset('squad') 데이터셋 활용하여 QA 학습 진행
+        - Question과 Context가 함께 Embedding된 결과에ㅔ 대하여 토큰 시작/끝 위치를 라벨화 하는 전처리
