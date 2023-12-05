@@ -378,3 +378,5 @@
     * Fast가 붙은 Tokenizer를 사용해야 Fine-tuning 가능
     * load_dataset('squad') 데이터셋 활용하여 QA 학습 진행
         - Question과 Context가 함께 Embedding된 결과에ㅔ 대하여 토큰 시작/끝 위치를 라벨화 하는 전처리
+        - tokenizer에서 return_offsets_mapping 파라미터 활용
+    * 한글 질의응답의 경우 KoELECTRA 활용 가능 → KorQuAD에 대하여 학습한 모델
