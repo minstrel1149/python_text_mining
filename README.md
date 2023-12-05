@@ -298,6 +298,7 @@
     * base_multilingual-cased 모델 혹은 SKTBrain의 KoBERT 활용 가능
     * multiclass classification의 경우 model에 num_labels=n, problem_type='multi_label_classification' 추가
         - target matrix는 one-hot 벡터 형태여야
+    * 혹은 problem_type 파라미터는 제외하고 target matrix가 1d 벡터 형태여야
 
 ### Chapter.17 트랜스포머 변형 모형(X-formers)의 현황
 1. X-formers의 다양한 Tokenizer
@@ -323,3 +324,18 @@
         - task에 대한 부분과 출력을 명시적으로 지정할 필요가 없음
     * GPT-3 : Few-shot Learning으로 인한 성능 향상에 초점
         - GPT-3 기반의 Reinforcement Learning from Human Feedback을 통해 InstructGPT, ChatGPT 등으로 발전
+3. BERT 기반 X-formers
+    * BERT(Bidirectional Encoder Representations from Transformers) : Encoder만 사용하여 LM Pre-training 수행
+        - 완전한 Self-Attention을 사용함으로써 양방향의 완전한 문맥을 학습
+        - MLM(Masked Language Model), NSP(Next Sentence Prediction)의 특징
+    * RoBERTa : 동일한 BERT 모델에 대하여 좀 더 Robust한 학습 방법 제안 → Dynamic Masking
+    * ALBERT : 토큰 Embedding 벡터 크기를 줄여 파라미터 수를 줄이는 형태
+    * ELECTRA : Replaced Token Detection 방식으로 Pre-training 효율성 향상
+    * KoBERT(기타) : 한국어용 BERT. SentencePiece Tokenizer 사용
+4. Encoder와 Decoder를 모두 사용하는 X-formers
+    * BART(Bidirectional and Auto-Regressive Transformers)
+        - 원래의 입력에 노이즈를 추가하여 Auto-Encoder의 입력으로 사용, 출력은 원래의 입력을 사용하여 학습
+        - Denoising Auto-Encoder로 더 Robust한 학습 가능
+        - 문장 생성, 번역 등과 같은 Seq2Seq 작업에서 강점
+    * T5(Text-to-Text Transfer Transformers)
+        - Multi-task Pre-training 수행 → 여러 종류의 자연어 처리 작업에 대한 학습을 함께 진행
