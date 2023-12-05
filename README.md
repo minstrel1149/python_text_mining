@@ -354,4 +354,9 @@
     * Beam Search : model.generate() 메서드에서 num_beams 파라미터를 통해 지정
     * no_repeat_ngram_size, min_length, max_length, early_stopping 등 역시 model.generate() 메서드에서 활용
 3. Trainer 클래스를 이용한 Fine-tuning
-    * 
+    * preprocess_text(data)를 통한 토큰화 → input_ids, attention_mask, labels 존재
+    * Data Collator 정의 : Decoder에 필요한 라벨 입력을 자동으로 생성해주는 역할
+    * ROUGE 성능 지표 생성 : evaluate 패키지에서 load('rouge') 함수 진행
+    * Seq2SeqTrainingArgument 클래스와 Seq2SeqTrainer 클래스 이용
+        - args → learning_rate, save_total_limit, predict_with_generate 파라미터 등 추가
+        - trainer → data_collator 파라미터 등 추가
