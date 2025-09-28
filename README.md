@@ -13,7 +13,7 @@
     * 텍스트 전처리 : 토큰화, 어간/표제어 추출 등의 정규화, 품사 태깅 등
     * 딥러닝의 경우 최근에는 BERT, GPT와 같은 Transfer Learning을 활용
 2. 텍스트 마이닝의 주요 적용 분야
-    * Text Classification, Text Generation, Summarization, Question Answering, Machine Translation, Topic Modeling 등
+    * Text Classification, Text Generation, Summarization, Question Answering(RAG 기반 고려 필요), Machine Translation, Topic Modeling 등
 
 ### Chapter.2 텍스트 전처리(Text Preprocessing)
 1. 텍스트 전처리
