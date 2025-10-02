@@ -149,6 +149,11 @@
         - corpus, num_topics, id2word, passes, alphs, eta, time_slice 등 파라미터
         - time_slice : 순서대로 정렬된 각 시간 단위에 속한 문서의 수
         - 그런데, LdaMulticore와 달리 멀티코어 개념이 없어서 엄청난 시간 소요.. 이걸 쓸 수 있을까..?
+    * (추가) BERTopic 라이브러리 활용
+        - BERTopic 클래스 파라미터 : embedding_model, language, min_topic_size, verbose 등
+        - embedding_model에 전달할 때 별도 라이브러리 내 SentenceTransformer 클래스 활용도 가능
+        - topic_model.fit_transform(docs) 형태로 학습 진행
+        - .get_topic_info() 메서드, .get_topic(n) 메서드, .topics_over_time(docs, timestamp) 메서드, .visualize_topics_over_time(topics_over_time, nr_bins=48) 메서드 등
 
 ### Chapter.8 감성 분석
 1. 감성 분석(Sentiment Analysis)
