@@ -186,6 +186,7 @@
         - (단어의 수, 한 단어를 표현하는 Dense 벡터의 크기)의 2차원 행렬이 입력
         - 마지막 출력 노드를 이용해 문서를 분류
     * keras를 이용해 RNN모델 구축
+        - (추가) keras의 backend를 pytorch로 지정 진행
         - keras가 제공하는 토크나이저를 사용해 모형에 적합한 형태로 입력 데이터를 변환
         - tokenizer 객체 생성 후 fit_on_texts(corpus), texts_to_sequences(corpus) 등의 메서드 활용
         - pad_sequences(X) 함수를 통해 같은 길이를 갖도록 Truncating 및 Padding
